@@ -22,14 +22,15 @@ def load_data():
     data = pd.read_csv('tmdb_5000_movies.csv')
     return data
 
-@st.cache_data
+
 def preprocess_data(data):
+    data = data.copy()
     # Clean text data
     data['overview'] = data['overview'].astype(str)
     data['overview_clean'] = data['overview'].apply(lambda x: re.sub(r'[^a-zA-Z0-9\s]', '', x).lower().strip())
     return data
 
-@st.cache_data(allow_output_mutation=True)
+
 def vectorize_data(data):
     # Vectorize the cleaned text descriptions
     tfidf_vectorizer = TfidfVectorizer(stop_words='english')
