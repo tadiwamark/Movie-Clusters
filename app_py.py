@@ -16,20 +16,20 @@ from sklearn.cluster import KMeans
 # Title of the web app
 st.title('Movie Clustering Based on Descriptions')
 
-@st.cache
+@st.cache_data
 def load_data():
     # Load the dataset
     data = pd.read_csv('tmdb_5000_movies.csv')
     return data
 
-@st.cache
+@st.cache_data
 def preprocess_data(data):
     # Clean text data
     data['overview'] = data['overview'].astype(str)
     data['overview_clean'] = data['overview'].apply(lambda x: re.sub(r'[^a-zA-Z0-9\s]', '', x).lower().strip())
     return data
 
-@st.cache(allow_output_mutation=True)
+@st.cache_data(allow_output_mutation=True)
 def vectorize_data(data):
     # Vectorize the cleaned text descriptions
     tfidf_vectorizer = TfidfVectorizer(stop_words='english')
